@@ -6,7 +6,7 @@ mysql:
   password: root1234
   log_level: dev
 logger:
-  level: info
+  level: info # warning
   prefix: '[gvb_server]'
   director: log
   show_line: true
