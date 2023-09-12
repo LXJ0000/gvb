@@ -1,8 +1,10 @@
 package config
 
+import "strconv"
+
 type Mysql struct {
 	Host     string `yaml:"host"`
-	Port     string `yaml:"port"`
+	Port     int    `yaml:"port"`
 	Config   string `yaml:"config"` /*高级配置*/
 	DB       string `yaml:"db"`
 	User     string `yaml:"user"`
@@ -11,5 +13,5 @@ type Mysql struct {
 }
 
 func (m Mysql) Dsn() string {
-	return m.User + ":" + m.Password + "@tcp(" + m.Host + ":" + m.Port + ")/" + m.DB + "?" + m.Config
+	return m.User + ":" + m.Password + "@tcp(" + m.Host + ":" + strconv.Itoa(m.Port) + ")/" + m.DB + "?" + m.Config
 }
