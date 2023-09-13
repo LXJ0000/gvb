@@ -30,3 +30,26 @@ site_info:
   slogan: LXJ
   slogan_en: LXJ
   web: ""
+jwt:
+  secret:
+  expires: 48
+  issuer:
+email:
+  host:
+  port:
+  user:
+  password:
+  default_from_email:
+  user_ssl:
+  user_tls:
+qq:
+  app_id:
+  key:
+  redirect:
+qi_niu:
+  access_key:
+  secret_key:
+  bucket:
+  cdn:
+  zone:
+  size:
