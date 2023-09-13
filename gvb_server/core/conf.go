@@ -6,8 +6,8 @@ import (
 	"gvb_server/config"
 	"gvb_server/global"
 	"io/fs"
-	"io/ioutil"
 	"log"
+	"os"
 )
 
 const ConfigFile = "settings.yaml"
@@ -15,7 +15,7 @@ const ConfigFile = "settings.yaml"
 // InitCore 读取yaml文件配置
 func InitCore() {
 	c := &config.Config{}
-	yamlConf, err := ioutil.ReadFile(ConfigFile)
+	yamlConf, err := os.ReadFile(ConfigFile)
 	if err != nil {
 		panic(fmt.Errorf("get yaml Conf error: %s", err))
 	}
@@ -32,7 +32,7 @@ func SetYaml() error {
 	if err != nil {
 		return err
 	}
-	err = ioutil.WriteFile(ConfigFile, byteData, fs.ModePerm)
+	err = os.WriteFile(ConfigFile, byteData, fs.ModePerm)
 	if err != nil {
 		return err
 	}

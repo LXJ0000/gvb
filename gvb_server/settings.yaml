@@ -18,38 +18,39 @@ system:
   env: release
 site_info:
   created_at: "2023-09-12"
-  bei_an: ""
+  bei_an: xxxx
   title: GVB
-  qq_image: ""
+  qq_image: xxxx
   version: v3
   email: 1227891082@qq.com
-  wechat_image: ""
+  wechat_image: xxxx
   name: LXJ
   job: 全栈开发
   addr: 深圳
   slogan: LXJ
   slogan_en: LXJ
-  web: ""
-jwt:
-  secret:
-  expires: 48
-  issuer:
-email:
-  host:
-  port:
-  user:
-  password:
-  default_from_email:
-  user_ssl:
-  user_tls:
-qq:
-  app_id:
-  key:
-  redirect:
+  web: xxxx
 qi_niu:
-  access_key:
-  secret_key:
-  bucket:
-  cdn:
-  zone:
-  size:
+  enable: false
+  access_key: xxx
+  secret_key: xxx
+  bucket: xxx
+  cdn: xxx
+  zone: xxx
+  size: 0
+email:
+  host: ""
+  port: 0
+  user: 1227891082@qq.com
+  password: password
+  default_from_email: LXJ
+  user_ssl: true
+  user_tls: true
+jwt:
+  secret: "0x0372ACFEB262"
+  expires: 48
+  issuer: LXJ
+qq:
+  app_id: xxx
+  key: xxx
+  redirect: xxx
