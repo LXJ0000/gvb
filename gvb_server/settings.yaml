@@ -1,7 +1,7 @@
 mysql:
   host: 127.0.0.1
   port: 3306
-  config: ""
+  config: "charset=utf8mb4&parseTime=True&loc=Local"
   db: gvb_db
   user: root
   password: root1234
@@ -15,7 +15,7 @@ logger:
 system:
   host: 0.0.0.0
   post: 8080
-  env: release
+  env: dev
 site_info:
   created_at: "2023-09-12"
   bei_an: xxxx
@@ -55,5 +55,5 @@ qq:
   key: xxx
   redirect: xxx
 static:
-  size: 2
+  size: 100
   path: static/file

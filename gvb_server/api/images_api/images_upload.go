@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"gvb_server/global"
+	"gvb_server/models"
 	"gvb_server/models/res"
 	"gvb_server/utils"
+	"io"
 	"path"
 	"path/filepath"
 	"strings"
@@ -45,16 +47,17 @@ func (ImagesApi) ImagesUploadView(c *gin.Context) {
 	var resList []FileUploadResponse
 
 	for _, file := range files {
-		filename := file.Filename
+		fileName := file.Filename
 		//默认上传成功
-		fileUploadResponse := FileUploadResponse{FileName: filename, IsSuccess: true, Msg: "Success"}
+		fileUploadResponse := FileUploadResponse{FileName: fileName, IsSuccess: true, Msg: "Success"}
 
 		//上传路径
-		filePath := path.Join(basePath, filename)
+		filePath := path.Join(basePath, fileName)
 
 		//文件名后缀
-		suffix := strings.ToLower(filepath.Ext(filename))
+		suffix := strings.ToLower(filepath.Ext(fileName))
 		if !utils.InList(suffix, WhiteImageList) {
+			//上传失败
 			fileUploadResponse.IsSuccess = false
 			fileUploadResponse.Msg = "非法的文件格式"
 		} else if size := float64(file.Size) / float64(1024*1024); size > float64(global.Config.Static.Size) {
@@ -62,15 +65,38 @@ func (ImagesApi) ImagesUploadView(c *gin.Context) {
 			fileUploadResponse.IsSuccess = false
 			fileUploadResponse.Msg = fmt.Sprintf("文件当前大小为：%.2fMb 超出限定大小：%dMb", size, global.Config.Static.Size)
 		} else {
-			err := c.SaveUploadedFile(file, filePath)
+			fileObj, _ := file.Open()
 			if err != nil {
-				global.Log.Info(err.Error())
-				//上传失败
+				global.Log.Error(err.Error())
+			}
+			byteData, err := io.ReadAll(fileObj)
+			if err != nil {
+				global.Log.Error(err.Error())
+			}
+			imageHash := utils.Md5(byteData)
+			//查询数据库是否存在对应Hash
+			var bannerModel models.BannerModel
+			if err := global.DB.Where("hash = ?", imageHash).First(&bannerModel).Error; err == nil {
+				//	找到了 不需要存入数据库
+				fileUploadResponse.FileName = bannerModel.Path
 				fileUploadResponse.IsSuccess = false
-				fileUploadResponse.Msg = err.Error()
+				fileUploadResponse.Msg = fmt.Sprintf("图片已存在, src = %s now file_name is src", bannerModel.Path)
+			} else {
+				if err := c.SaveUploadedFile(file, filePath); err != nil {
+					global.Log.Info(err.Error())
+					//上传失败
+					fileUploadResponse.IsSuccess = false
+					fileUploadResponse.Msg = err.Error()
+				} else {
+					//入库
+					global.DB.Create(&models.BannerModel{
+						Path: filePath,
+						Hash: imageHash,
+						Name: fileName,
+					})
+				}
 			}
 		}
-
 		resList = append(resList, fileUploadResponse)
 	}
 	res.OKWithData(resList, c)
