@@ -31,13 +31,14 @@ site_info:
   slogan_en: LXJ
   web: xxxx
 qi_niu:
-  enable: true
+  enable: false
   access_key: jbOdFNbXoiC6zEhKUtT-rSqtKbt1Ytu1vIUBTSqc
   secret_key: d55oZTrdnEsk_qEGOj0WQv7GZcquNlWuDsvdELSK
   bucket: 202100203017
-  cdn: s0yvn46ks.hn-bkt.clouddn.com/
+  cdn: http://s0yvn46ks.hn-bkt.clouddn.com/
   zone: z2
   size: 20
+  prefix: gvb
 email:
   host: ""
   port: 0

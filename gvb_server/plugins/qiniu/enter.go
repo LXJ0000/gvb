@@ -9,7 +9,6 @@ import (
 	"github.com/qiniu/go-sdk/v7/storage"
 	"gvb_server/config"
 	"gvb_server/global"
-	"time"
 )
 
 // 获取上传的token
@@ -61,10 +60,7 @@ func UploadImage(data []byte, imageName string, prefix string) (filePath string,
 	}
 	dataLen := int64(len(data))
 
-	// 获取当前时间
-	now := time.Now().Format("20060102150405")
-	key := fmt.Sprintf("%s/%s__%s", prefix, now, imageName)
-
+	key := fmt.Sprintf("%s/%s", prefix, imageName)
 	err = formUploader.Put(context.Background(), &ret, upToken, key, bytes.NewReader(data), dataLen, &putExtra)
 	if err != nil {
 		return "", err
