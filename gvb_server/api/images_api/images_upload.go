@@ -5,7 +5,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"gvb_server/global"
 	"gvb_server/models/res"
+	"gvb_server/utils"
 	"path"
+	"path/filepath"
+	"strings"
+)
+
+var (
+	// WhiteImageList 图片白名单
+	WhiteImageList = []string{
+		".jpg", ".png", ".jpeg", ".ico", ".tiff", ".gif", ".svg", ".webp",
+	}
 )
 
 type FileUploadResponse struct {
@@ -14,7 +24,7 @@ type FileUploadResponse struct {
 	Msg       string `json:"msg"`
 }
 
-// ImagesUploadView 上传单张图片 返回图片的URL
+// ImagesUploadView 上传多个图片 返回图片的URL
 func (ImagesApi) ImagesUploadView(c *gin.Context) {
 	form, err := c.MultipartForm()
 	if err != nil {
@@ -35,14 +45,19 @@ func (ImagesApi) ImagesUploadView(c *gin.Context) {
 	var resList []FileUploadResponse
 
 	for _, file := range files {
+		filename := file.Filename
 		//默认上传成功
-		fileUploadResponse := FileUploadResponse{FileName: file.Filename, IsSuccess: true, Msg: "Success"}
+		fileUploadResponse := FileUploadResponse{FileName: filename, IsSuccess: true, Msg: "Success"}
 
 		//上传路径
-		filePath := path.Join(basePath, file.Filename)
+		filePath := path.Join(basePath, filename)
 
-		//判断大小
-		if size := float64(file.Size) / float64(1024*1024); size > float64(global.Config.Static.Size) {
+		//文件名后缀
+		suffix := strings.ToLower(filepath.Ext(filename))
+		if !utils.InList(suffix, WhiteImageList) {
+			fileUploadResponse.IsSuccess = false
+			fileUploadResponse.Msg = "非法的文件格式"
+		} else if size := float64(file.Size) / float64(1024*1024); size > float64(global.Config.Static.Size) {
 			//上传失败
 			fileUploadResponse.IsSuccess = false
 			fileUploadResponse.Msg = fmt.Sprintf("文件当前大小为：%.2fMb 超出限定大小：%dMb", size, global.Config.Static.Size)
