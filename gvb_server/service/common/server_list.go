@@ -24,7 +24,7 @@ func ComList[T any](model T, option Option) (list []T, count int64, err error) {
 		offset = 0
 	}
 	if option.Sort == "" {
-		option.Sort = "created_at DESC" // 默认按照时间顺序
+		option.Sort = "updated_at DESC" // 默认按照时间顺序
 	}
 
 	//分页查询
