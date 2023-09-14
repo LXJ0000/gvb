@@ -6,9 +6,11 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-	apiRouterGroup := router.Group("api")
+	apiRouterGroup := router.Group("/api/")
 
-	//系统配置API
+	//系统配置API todo
 	SettingsRouter(apiRouterGroup)
+	ImagesRouter(apiRouterGroup)
+
 	return router
 }

@@ -21,7 +21,7 @@ site_info:
   bei_an: xxxx
   title: GVB
   qq_image: xxxx
-  version: v3
+  version: v4
   email: 1227891082@qq.com
   wechat_image: xxxx
   name: LXJ
@@ -31,7 +31,7 @@ site_info:
   slogan_en: LXJ
   web: xxxx
 qi_niu:
-  enable: false
+  enable: "false"
   access_key: xxx
   secret_key: xxx
   bucket: xxx
@@ -54,3 +54,6 @@ qq:
   app_id: xxx
   key: xxx
   redirect: xxx
+static:
+  size: 2
+  path: static/file
