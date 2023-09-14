@@ -31,13 +31,13 @@ site_info:
   slogan_en: LXJ
   web: xxxx
 qi_niu:
-  enable: "false"
-  access_key: xxx
-  secret_key: xxx
-  bucket: xxx
-  cdn: xxx
-  zone: xxx
-  size: 0
+  enable: true
+  access_key: jbOdFNbXoiC6zEhKUtT-rSqtKbt1Ytu1vIUBTSqc
+  secret_key: d55oZTrdnEsk_qEGOj0WQv7GZcquNlWuDsvdELSK
+  bucket: 202100203017
+  cdn: s0yvn46ks.hn-bkt.clouddn.com/
+  zone: z2
+  size: 20
 email:
   host: ""
   port: 0
@@ -47,7 +47,7 @@ email:
   user_ssl: true
   user_tls: true
 jwt:
-  secret: "0x0372ACFEB262"
+  secret: 0x0372ACFEB262
   expires: 48
   issuer: LXJ
 qq:
@@ -55,5 +55,5 @@ qq:
   key: xxx
   redirect: xxx
 static:
-  size: 100
+  size: 20
   path: static/file

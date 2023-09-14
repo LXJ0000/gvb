@@ -5,7 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"gvb_server/global"
 	"gvb_server/models"
+	"gvb_server/models/ctype"
 	"gvb_server/models/res"
+	"gvb_server/plugins/qiniu"
 	"gvb_server/utils"
 	"io"
 	"path"
@@ -80,21 +82,43 @@ func (ImagesApi) ImagesUploadView(c *gin.Context) {
 				//	找到了 不需要存入数据库
 				fileUploadResponse.FileName = bannerModel.Path
 				fileUploadResponse.IsSuccess = false
-				fileUploadResponse.Msg = fmt.Sprintf("图片已存在, src = %s now file_name is src", bannerModel.Path)
+				fileUploadResponse.Msg = fmt.Sprintf("图片已存在")
 			} else {
-				if err := c.SaveUploadedFile(file, filePath); err != nil {
-					global.Log.Info(err.Error())
-					//上传失败
-					fileUploadResponse.IsSuccess = false
-					fileUploadResponse.Msg = err.Error()
+				if global.Config.QiNiu.Enable {
+					//开启七牛云存储
+					filePath, err = qiniu.UploadImage(byteData, fileName, "gvb")
+					if err != nil {
+						global.Log.Error(err.Error())
+						fileUploadResponse.IsSuccess = false
+						fileUploadResponse.Msg = err.Error()
+					} else {
+						//入库
+						fileUploadResponse.Msg = "图片上传成功 ~七牛云"
+						global.DB.Create(&models.BannerModel{
+							Path:      filePath,
+							Hash:      imageHash,
+							Name:      fileName,
+							ImageType: ctype.QiNiu,
+						})
+					}
 				} else {
-					//入库
-					global.DB.Create(&models.BannerModel{
-						Path: filePath,
-						Hash: imageHash,
-						Name: fileName,
-					})
+					if err := c.SaveUploadedFile(file, filePath); err != nil {
+						global.Log.Info(err.Error())
+						//上传失败
+						fileUploadResponse.IsSuccess = false
+						fileUploadResponse.Msg = err.Error()
+					} else {
+						//入库
+						fileUploadResponse.Msg = "图片上传成功 ~本地"
+						global.DB.Create(&models.BannerModel{
+							Path:      filePath,
+							Hash:      imageHash,
+							Name:      fileName,
+							ImageType: ctype.Local,
+						})
+					}
 				}
+
 			}
 		}
 		resList = append(resList, fileUploadResponse)
