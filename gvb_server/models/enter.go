@@ -4,5 +4,5 @@ type PageInfo struct {
 	Page  int    `form:"page"`
 	Key   string `form:"key"`
 	Limit int    `form:"limit"`
-	Sort  int    `form:"sort"`
+	Sort  string `form:"sort"`
 }

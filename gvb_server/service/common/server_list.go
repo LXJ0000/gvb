@@ -23,7 +23,11 @@ func ComList[T any](model T, option Option) (list []T, count int64, err error) {
 	if offset < 0 {
 		offset = 0
 	}
+	if option.Sort == "" {
+		option.Sort = "created_at DESC" // 默认按照时间顺序
+	}
+
 	//分页查询
-	err = query.Limit(option.Limit).Offset(offset).Find(&list).Error
+	err = query.Limit(option.Limit).Offset(offset).Order(option.Sort).Find(&list).Error
 	return list, count, err
 }
