@@ -11,6 +11,25 @@ definitions:
     x-enum-varnames:
     - Local
     - QiNiu
+  images_api.ImagesResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      path:
+        type: string
+    type: object
+  images_api.ImagesUpdateRequest:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
   models.BannerModel:
     properties:
       created_at:
@@ -29,6 +48,13 @@ definitions:
         type: string
       path:
         type: string
+    type: object
+  models.RemoveRequest:
+    properties:
+      id_list:
+        items:
+          type: integer
+        type: array
     type: object
   res.ListResponse-models_BannerModel:
     properties:
@@ -53,6 +79,25 @@ info:
   version: "1.0"
 paths:
   /api/images/:
+    delete:
+      description: 删除图片
+      parameters:
+      - description: 表示多个参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.RemoveRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 删除图片
+      tags:
+      - 图片管理
     get:
       description: 图片列表
       parameters:
@@ -106,6 +151,45 @@ paths:
           schema:
             $ref: '#/definitions/res.Response'
       summary: 上传多个图片，返回图片的url
+      tags:
+      - 图片管理
+    put:
+      description: 图片更新
+      parameters:
+      - description: 表示多个参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/images_api.ImagesUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 图片更新
+      tags:
+      - 图片管理
+  /api/images_names/:
+    get:
+      description: 图片名称列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/res.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/images_api.ImagesResponse'
+                  type: array
+              type: object
+      summary: 图片名称列表
       tags:
       - 图片管理
 swagger: "2.0"

@@ -7,5 +7,5 @@ import (
 
 func AdvertRouter(router *gin.RouterGroup) {
 	advertApi := api.ApiGroupApp.AdvertsApi
-	router.POST("adverts", advertApi.AdvertCreateView)
+	router.POST("/adverts/", advertApi.AdvertCreateView)
 }

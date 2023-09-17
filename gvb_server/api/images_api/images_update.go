@@ -16,7 +16,7 @@ type ImagesUpdateRequest struct {
 // @Tags 图片管理
 // @Summary 图片更新
 // @Description 图片更新
-// @Param data body ImageUpdateRequest   true  "表示多个参数"
+// @Param data body ImagesUpdateRequest   true  "表示多个参数"
 // @Router /api/images/ [put]
 // @Produce json
 // @Success 200 {object} res.Response{}
