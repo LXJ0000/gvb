@@ -12,7 +12,7 @@ func MakeMigrations() {
 
 	err = global.DB.Set("gorm:table_options", "ENGINE=InnoDB").
 		AutoMigrate(
-			&models.AdverModel{},
+			&models.AdvertModel{},
 			&models.ArticleModel{},
 			&models.BannerModel{},
 			&models.CommentModel{},

@@ -2,11 +2,17 @@ package main
 
 import (
 	"gvb_server/core"
+	_ "gvb_server/docs"
 	flags "gvb_server/flag"
 	"gvb_server/global"
 	"gvb_server/routers"
 )
 
+// @title           GVB Server API Doc
+// @version         1.0
+// @description     API Doc
+// @host      localhost:8080
+// @BasePath  /
 func main() {
 	//读取配置文件
 	core.InitCore()

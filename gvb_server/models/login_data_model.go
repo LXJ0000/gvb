@@ -1,11 +1,7 @@
 package models
 
-import (
-	"gorm.io/gorm"
-)
-
 type LoginDataModel struct {
-	gorm.Model
+	MODEL
 	UserID    string    `json:"user_id"`
 	UserModel UserModel `gorm:"foreignKey:UserID" json:"-"`
 	IP        string    `gorm:"size:20" json:"ip"`

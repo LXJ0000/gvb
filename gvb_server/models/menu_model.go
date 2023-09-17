@@ -1,12 +1,11 @@
 package models
 
 import (
-	"gorm.io/gorm"
 	"gvb_server/models/ctype"
 )
 
 type MenuModel struct {
-	gorm.Model
+	MODEL
 	MenuTitle    string        `gorm:"size:32" json:"menu_title"`                                                                    //
 	MenuTitleEn  string        `gorm:"size:32" json:"menu_title_en"`                                                                 //
 	Slogan       string        `gorm:"size:64" json:"slogan"`                                                                        //

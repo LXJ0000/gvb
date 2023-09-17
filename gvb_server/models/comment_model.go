@@ -1,9 +1,7 @@
 package models
 
-import "gorm.io/gorm"
-
 type CommentModel struct {
-	gorm.Model
+	MODEL
 	SubComments        []*CommentModel `gorm:"foreignKey:ParentCommentID" json:"sub_comments"`
 	ParentCommentModel *CommentModel   `gorm:"foreignKey:ParentCommentID" json:"parent_comment_model"`
 	ParentCommentID    *uint           `json:"parent_comment_id"`

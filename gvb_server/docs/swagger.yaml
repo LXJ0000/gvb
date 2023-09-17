@@ -1,0 +1,111 @@
+basePath: /
+definitions:
+  ctype.ImageType:
+    enum:
+    - 1
+    - 2
+    type: integer
+    x-enum-comments:
+      Local: 本地
+      QiNiu: 七牛云
+    x-enum-varnames:
+    - Local
+    - QiNiu
+  models.BannerModel:
+    properties:
+      created_at:
+        description: 创建时间
+        type: string
+      hash:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      image_type:
+        allOf:
+        - $ref: '#/definitions/ctype.ImageType'
+        description: 图片类型 本地还是七牛云
+      name:
+        type: string
+      path:
+        type: string
+    type: object
+  res.ListResponse-models_BannerModel:
+    properties:
+      count:
+        type: integer
+      list:
+        $ref: '#/definitions/models.BannerModel'
+    type: object
+  res.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API Doc
+  title: GVB Server API Doc
+  version: "1.0"
+paths:
+  /api/images/:
+    get:
+      description: 图片列表
+      parameters:
+      - in: query
+        name: key
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/res.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/res.ListResponse-models_BannerModel'
+              type: object
+      summary: 图片列表
+      tags:
+      - 图片管理
+    post:
+      consumes:
+      - multipart/form-data
+      description: 上传多个图片，返回图片的url
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: 文件上传
+        in: formData
+        name: images
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/res.Response'
+      summary: 上传多个图片，返回图片的url
+      tags:
+      - 图片管理
+swagger: "2.0"

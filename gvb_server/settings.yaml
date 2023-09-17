@@ -15,7 +15,7 @@ logger:
 system:
   host: 0.0.0.0
   post: 8080
-  env: dev
+  env: release
 site_info:
   created_at: "2023-09-12"
   bei_an: xxxx
@@ -31,7 +31,7 @@ site_info:
   slogan_en: LXJ
   web: xxxx
 qi_niu:
-  enable: false
+  enable: true
   access_key: jbOdFNbXoiC6zEhKUtT-rSqtKbt1Ytu1vIUBTSqc
   secret_key: d55oZTrdnEsk_qEGOj0WQv7GZcquNlWuDsvdELSK
   bucket: 202100203017

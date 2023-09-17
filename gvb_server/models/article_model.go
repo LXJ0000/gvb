@@ -1,12 +1,11 @@
 package models
 
 import (
-	"gorm.io/gorm"
 	"gvb_server/models/ctype"
 )
 
 type ArticleModel struct {
-	gorm.Model
+	MODEL
 	Title        string         `json:"title" gorm:"size:32"`                          //标题
 	Abstract     string         `json:"abstract" gorm:""`                              //简介
 	Content      string         `json:"content" gorm:""`                               //内容

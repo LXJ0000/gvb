@@ -8,6 +8,14 @@ import (
 	"gvb_server/models/res"
 )
 
+// ImagesRemoveView 删除图片
+// @Tags 图片管理
+// @Summary 删除图片
+// @Description 删除图片
+// @Param data body models.RemoveRequest   true  "表示多个参数"
+// @Router /api/images/ [delete]
+// @Produce json
+// @Success 200 {object} res.Response{}
 func (ImagesApi) ImagesRemoveView(c *gin.Context) {
 	var cr models.RemoveRequest
 	if err := c.ShouldBindJSON(&cr); err != nil {
