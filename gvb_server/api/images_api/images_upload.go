@@ -8,13 +8,6 @@ import (
 	"gvb_server/service/image_service"
 )
 
-var (
-	// WhiteImageList 图片白名单
-	WhiteImageList = []string{
-		".jpg", ".png", ".jpeg", ".ico", ".tiff", ".gif", ".svg", ".webp",
-	}
-)
-
 // ImagesUploadView 上传多个图片 返回图片的URL
 func (ImagesApi) ImagesUploadView(c *gin.Context) {
 	form, err := c.MultipartForm()
