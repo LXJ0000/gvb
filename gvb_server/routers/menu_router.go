@@ -8,4 +8,8 @@ import (
 func MenuRouter(router *gin.RouterGroup) {
 	menuApi := api.ApiGroupApp.MenuApi
 	router.POST("/menu/", menuApi.MenuCreateView)
+	router.GET("/menu/", menuApi.MenuListView)
+	router.GET("/menu_names/", menuApi.MenuNameListView)
+	router.PUT("/menu/:id/", menuApi.MenuUpdateView)
+
 }

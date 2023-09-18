@@ -14,14 +14,14 @@ type ImageSort struct {
 }
 
 type MenuRequest struct {
-	MenuTitle     string      `json:"menu_title" binding:"required" msg:"请输入菜单中文名称"`
-	MenuTitleEn   string      `json:"menu_title_en" binding:"required" msg:"请输入菜单英文名称"`
-	Slogan        string      `json:"slogan"`
-	Abstract      ctype.Array `json:"abstract"`
-	AbstractTime  int         `json:"abstract_time"`
-	BannerTime    int         `json:"banner_time"`
-	Sort          int         `json:"sort" binding:"required" msg:"请选择菜单序号"`
-	ImageSortList []ImageSort `json:"image_sort_list"` // 具体图片的顺序
+	Title         string      `json:"title" binding:"required" msg:"请输入菜单中文名称" structs:"title"`
+	Path          string      `json:"path" binding:"required" msg:"请输入菜单路径" structs:"path"`
+	Slogan        string      `json:"slogan" structs:"slogan"`
+	Abstract      ctype.Array `json:"abstract" structs:"abstract"`
+	AbstractTime  int         `json:"abstract_time" structs:"abstract_time"`
+	BannerTime    int         `json:"banner_time" structs:"banner_time"`
+	Sort          int         `json:"sort" binding:"required" msg:"请选择菜单序号" structs:"sort"`
+	ImageSortList []ImageSort `json:"image_sort_list" structs:"-"` // 具体图片的顺序
 }
 
 func (MenuApi) MenuCreateView(c *gin.Context) {
@@ -32,8 +32,8 @@ func (MenuApi) MenuCreateView(c *gin.Context) {
 	}
 
 	menuModel := models.MenuModel{
-		MenuTitle:    cr.MenuTitle,
-		MenuTitleEn:  cr.MenuTitleEn,
+		Title:        cr.Title,
+		Path:         cr.Path,
 		Slogan:       cr.Slogan,
 		Abstract:     cr.Abstract,
 		AbstractTime: cr.AbstractTime,
@@ -41,7 +41,11 @@ func (MenuApi) MenuCreateView(c *gin.Context) {
 		Sort:         cr.Sort,
 	}
 	//判断重复
-
+	var count int64
+	if global.DB.Model(&models.MenuModel{}).Where("title = ? or path = ?", cr.Title, cr.Path).Count(&count); count > 0 {
+		res.FailWithMessage("此菜单已存在", c)
+		return
+	}
 	//	menu入库
 	if err := global.DB.Create(&menuModel).Error; err != nil {
 		global.Log.Error(err.Error())
