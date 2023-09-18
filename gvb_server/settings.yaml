@@ -5,7 +5,7 @@ mysql:
   db: gvb_db
   user: root
   password: root1234
-  log_level: dev
+  log_level: release
 logger:
   level: info
   prefix: '[gvb_server]'

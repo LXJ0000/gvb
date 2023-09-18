@@ -1,8 +1,10 @@
 package models
 
+import "gorm.io/gorm"
+
 // AdvertModel 广告表
 type AdvertModel struct {
-	MODEL
+	gorm.Model
 	Title  string `json:"title" gorm:"size:32"` //
 	Href   string `json:"href"`                 // 链接
 	Images string `json:"images"`               //

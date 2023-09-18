@@ -8,7 +8,7 @@ import (
 func MakeMigrations() {
 	var err error
 	_ = global.DB.SetupJoinTable(&models.UserModel{}, "CollectsModels", &models.UserCollectModel{})
-	_ = global.DB.SetupJoinTable(&models.UserModel{}, "Banners", &models.MenuBannerModel{})
+	_ = global.DB.SetupJoinTable(&models.MenuModel{}, "Banners", &models.MenuBannerModel{})
 
 	err = global.DB.Set("gorm:table_options", "ENGINE=InnoDB").
 		AutoMigrate(
@@ -22,6 +22,7 @@ func MakeMigrations() {
 			&models.MessageModel{},
 			&models.TagModel{},
 			&models.UserModel{},
+			&models.UserCollectModel{},
 			&models.LoginDataModel{},
 		)
 	if err != nil {

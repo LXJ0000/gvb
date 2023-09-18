@@ -8,7 +8,7 @@ import (
 )
 
 type BannerModel struct {
-	MODEL
+	gorm.Model
 	Path      string          `json:"path"`
 	Hash      string          `json:"hash"`
 	Name      string          `json:"name" gorm:"size:32"`
