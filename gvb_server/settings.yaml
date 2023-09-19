@@ -49,7 +49,7 @@ email:
   user_tls: true
 jwt:
   secret: 0x0372ACFEB262
-  expires: 48
+  expires: 2
   issuer: LXJ
 qq:
   app_id: xxx

@@ -33,4 +33,5 @@ func main() {
 	if err := router.Run(addr); err != nil {
 		global.Log.Fatalf(err.Error())
 	}
+
 }

@@ -2,7 +2,7 @@ package models
 
 type LoginDataModel struct {
 	MODEL
-	UserID    string    `json:"user_id"`
+	UserID    uint      `json:"user_id"`
 	UserModel UserModel `gorm:"foreignKey:UserID" json:"-"`
 	IP        string    `gorm:"size:20" json:"ip"`
 	NickName  string    `gorm:"size:42" json:"nick_name"`
