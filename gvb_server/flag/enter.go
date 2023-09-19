@@ -5,24 +5,27 @@ import (
 )
 
 type Option struct {
-	DB bool
+	DB   bool
+	User string // -u admin or -u user
 }
 
 // Parse 解析命令行参数
 func Parse() Option {
 
 	db := flag.Bool("db", false, "初始化数据库")
+	user := flag.String("u", "", "创建用户")
 
 	// 解析命令行参数写入注册的flag里
 	flag.Parse()
 	return Option{
-		DB: *db,
+		DB:   *db,
+		User: *user,
 	}
 }
 
 // IsWebStop 是否停止Web项目
 func IsWebStop(option Option) bool {
-	if option.DB {
+	if option.DB || option.User != "" {
 		return true
 	}
 	return false
@@ -32,5 +35,11 @@ func IsWebStop(option Option) bool {
 func SwitchOption(option Option) {
 	if option.DB {
 		MakeMigrations()
+		return
 	}
+	if option.User == "admin" || option.User == "user" {
+		CreateUser(option.User)
+		return
+	}
+	flag.Usage()
 }
