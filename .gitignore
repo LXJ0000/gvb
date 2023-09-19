@@ -1,1 +1,6 @@
-.idea
+*.idea
+*.air.toml
+*.exe
+*.log
+*.exe~
+*/tmp
