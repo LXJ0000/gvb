@@ -11,5 +11,6 @@ func MenuRouter(router *gin.RouterGroup) {
 	router.GET("/menu/", menuApi.MenuListView)
 	router.GET("/menu_names/", menuApi.MenuNameListView)
 	router.PUT("/menu/:id/", menuApi.MenuUpdateView)
+	router.DELETE("/menu/", menuApi.MenuDeleteView)
 
 }
