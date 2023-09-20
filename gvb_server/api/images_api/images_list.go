@@ -23,7 +23,7 @@ func (ImagesApi) ImagesListView(c *gin.Context) {
 	}
 	list, count, _ := common.ComList(models.BannerModel{}, common.Option{
 		PageInfo: cr,
-		Debug:    true,
+		Debug:    false,
 	})
 
 	res.OKWithList(list, count, c)

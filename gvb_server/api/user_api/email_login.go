@@ -6,7 +6,7 @@ import (
 	"gvb_server/models"
 	"gvb_server/models/res"
 	"gvb_server/utils"
-	"gvb_server/utils/jwt"
+	"gvb_server/utils/jwts"
 )
 
 type EmailLoginRequest struct {
@@ -36,7 +36,7 @@ func (UserApi) EmailLoginView(c *gin.Context) {
 	}
 
 	//	token生成
-	token, err := JWT.GenToken(JWT.JwtPayLoad{
+	token, err := jwts.GenToken(jwts.JwtPayLoad{
 		UserID:   user.ID,
 		NickName: user.NickName,
 		Role:     int(user.Role),

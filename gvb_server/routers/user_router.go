@@ -8,5 +8,5 @@ import (
 func UserRouter(router *gin.RouterGroup) {
 	userApi := api.ApiGroupApp.UserApi
 	router.POST("/email_login/", userApi.EmailLoginView)
-
+	router.GET("/user/", userApi.UserListView)
 }

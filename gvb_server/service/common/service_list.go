@@ -16,15 +16,15 @@ func ComList[T any](model T, option Option) (list []T, count int64, err error) {
 	if option.Debug {
 		DB = global.DB.Session(&gorm.Session{Logger: global.MysqlLog})
 	}
+	if option.Sort == "" {
+		option.Sort = "updated_at DESC" // 默认按照时间顺序
+	}
 
-	count = DB.Where(model).Find(&list).RowsAffected
-	query := DB.Where(model)
+	count = DB.Where(&model).Find(&list).RowsAffected
+	query := DB.Where(&model)
 	offset := (option.Page - 1) * option.Limit
 	if offset < 0 {
 		offset = 0
-	}
-	if option.Sort == "" {
-		option.Sort = "updated_at DESC" // 默认按照时间顺序
 	}
 
 	//分页查询
