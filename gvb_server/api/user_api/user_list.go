@@ -7,7 +7,6 @@ import (
 	"gvb_server/models/res"
 	"gvb_server/service/common"
 	"gvb_server/utils/desens"
-	"gvb_server/utils/jwts"
 )
 
 type UserResponse struct {
@@ -15,15 +14,9 @@ type UserResponse struct {
 }
 
 func (UserApi) UserListView(c *gin.Context) {
-	//判断Admin
-	token := c.Request.Header.Get("token")
-	if token == "" {
-		res.FailWithMessage("未携带token", c)
-		return
-	}
-	claim, err := jwts.ParseToken(token)
-	if err != nil {
-		res.FailWithMessage("token不正确", c)
+	role, ok := c.Get("role")
+	if !ok {
+		res.FailWithMessage("", c)
 		return
 	}
 
@@ -38,7 +31,7 @@ func (UserApi) UserListView(c *gin.Context) {
 		Debug:    true,
 	})
 	for _, user := range list {
-		if claim.Role != int(ctype.PermissionAdmin) {
+		if role != int(ctype.PermissionAdmin) {
 			// not Admin
 			user.UserName = ""
 		}
