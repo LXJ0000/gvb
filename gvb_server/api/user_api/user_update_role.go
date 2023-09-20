@@ -9,8 +9,9 @@ import (
 )
 
 type UserRoleUpdateRequest struct {
-	Role   ctype.Role `json:"role" binding:"required,oneof=1 2 3 4" msg:"权限参数错误"`
-	UserID uint       `json:"user_id" binding:"required" msg:"请选择正确的用户ID"`
+	Role     ctype.Role `json:"role" binding:"required,oneof=1 2 3 4" msg:"权限参数错误"`
+	UserID   uint       `json:"user_id" binding:"required" msg:"请选择正确的用户ID"`
+	NickName string     `json:"nick_name"`
 }
 
 // UserUpdateRoleView 修改用户权限
@@ -26,7 +27,10 @@ func (UserApi) UserUpdateRoleView(c *gin.Context) {
 		res.FailWithMessage("用户不存在", c)
 		return
 	}
-	if err := global.DB.Model(&user).Update("role", cr.Role).Error; err != nil {
+	if err := global.DB.Model(&user).Updates(map[string]interface{}{
+		"role":      cr.Role,
+		"nick_name": cr.NickName,
+	}).Error; err != nil {
 		global.Log.Error(err)
 		res.FailWithMessage("更新失败", c)
 		return
