@@ -10,4 +10,5 @@ type Config struct {
 	Jwt      Jwt      `yaml:"jwt"`
 	QQ       QQ       `yaml:"qq"`
 	Static   Static   `yaml:"static"`
+	Redis    Redis    `yaml:"redis"`
 }
