@@ -29,7 +29,7 @@ func (UserApi) EmailLoginView(c *gin.Context) {
 	}
 
 	//密码校验
-	if hashPassword := utils.SHA1(cr.Password); hashPassword != user.Password {
+	if !utils.CheckPassword(cr.Password, user.Password) {
 		res.FailWithMessage("用户名或密码错误", c)
 		global.Log.Warnln("密码不正常")
 		return

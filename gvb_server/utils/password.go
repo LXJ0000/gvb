@@ -25,3 +25,11 @@ func SHAMiddleWare() gin.HandlerFunc {
 		context.Next()
 	}
 }
+
+// CheckPassword 判断密码是否一直 前者为需要判断的明文密码 后者为密文密码
+func CheckPassword(pwd, password string) bool {
+	if hashPassword := SHA1(pwd); hashPassword != password {
+		return false
+	}
+	return true
+}
