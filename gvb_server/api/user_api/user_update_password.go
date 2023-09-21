@@ -30,7 +30,8 @@ func (UserApi) UserUpdatePassword(c *gin.Context) {
 		return
 	}
 	hashPwd := utils.SHA1(cr.Pwd)
-	if err := global.DB.Where(&user).Update("password", hashPwd).Error; err != nil {
+	if err := global.DB.Model(&user).Update("password", hashPwd).Error; err != nil {
+		global.Log.Error(err)
 		res.FailWithMessage("密码修改失败", c)
 		return
 	}
