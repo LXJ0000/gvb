@@ -15,6 +15,7 @@ func InList(key string, list []string) bool {
 	return false
 }
 
+// GetUniqueFileName 用于生成唯一的文件名
 func GetUniqueFileName(imageName string) string {
 	now := time.Now().Unix()
 	return fmt.Sprintf("%d__%s", now, imageName)

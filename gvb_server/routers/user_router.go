@@ -12,5 +12,6 @@ func UserRouter(router *gin.RouterGroup) {
 	router.GET("/user/", middleware.JwtAuth(), userApi.UserListView)
 	router.POST("/user_role/", middleware.JwtAdminAuth(), userApi.UserUpdateRoleView)
 	router.POST("/user_password/", middleware.JwtAuth(), userApi.UserUpdatePassword)
+	router.POST("/logout/", middleware.JwtAuth(), userApi.UserLogoutView)
 
 }

@@ -10,5 +10,5 @@ type Redis struct {
 }
 
 func (r Redis) Addr() string {
-	return fmt.Sprintf("%s:%d", r.IP, &r.Port)
+	return fmt.Sprintf("%s:%d", r.IP, r.Port)
 }

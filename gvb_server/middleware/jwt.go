@@ -5,6 +5,7 @@ import (
 	"gvb_server/global"
 	"gvb_server/models/ctype"
 	"gvb_server/models/res"
+	"gvb_server/service"
 	"gvb_server/utils/jwts"
 	"net/http"
 	"time"
@@ -50,11 +51,23 @@ func JwtAuth() gin.HandlerFunc {
 			return
 		}
 
+		//判断是否在redis中 若是则注销了
+		if service.ServiceApp.RedisService.CheckLogout(tokenStr) {
+			global.Log.Warnln("token失效")
+
+			c.JSON(http.StatusOK, res.Response{
+				Code: 200, // todo modify
+				Msg:  "token失效",
+			})
+			c.Abort() //阻止执行
+			return
+		}
+
 		c.Set("role", claim.Role)
 		c.Set("user_id", claim.UserID)
 		c.Set("avatar", claim.Avatar)
 		c.Set("nick_name", claim.NickName)
-
+		c.Set("ExpiresAt", claim.ExpiresAt)
 		c.Next()
 	}
 }
