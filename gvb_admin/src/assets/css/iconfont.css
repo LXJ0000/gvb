@@ -1,8 +1,8 @@
 @font-face {
     font-family: "iconfont"; /* Project id 4267851 */
-    src: url('//at.alicdn.com/t/c/font_4267851_32r2nsig5dp.woff2?t=1695639970590') format('woff2'),
-    url('//at.alicdn.com/t/c/font_4267851_32r2nsig5dp.woff?t=1695639970590') format('woff'),
-    url('//at.alicdn.com/t/c/font_4267851_32r2nsig5dp.ttf?t=1695639970590') format('truetype');
+    src: url('//at.alicdn.com/t/c/font_4267851_e7myinpmuj.woff2?t=1695642000223') format('woff2'),
+    url('//at.alicdn.com/t/c/font_4267851_e7myinpmuj.woff?t=1695642000223') format('woff'),
+    url('//at.alicdn.com/t/c/font_4267851_e7myinpmuj.ttf?t=1695642000223') format('truetype');
 }
 
 .iconfont {
@@ -13,12 +13,20 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-xiala:before {
-    content: "\e656";
+.icon-quanping1:before {
+    content: "\e628";
 }
 
-.icon-quanping:before {
-    content: "\e683";
+.icon-yueliang:before {
+    content: "\e764";
+}
+
+.icon-liangdu_huaban:before {
+    content: "\e642";
+}
+
+.icon-xiala:before {
+    content: "\e656";
 }
 
 .icon-tuichuquanping:before {

@@ -1,8 +1,10 @@
 <script setup>
 import {useRouter} from "vue-router";
+import {ref} from "vue";
+
 const router = useRouter()
-const menuClick = ({ key }) => {
-  if(key === "logout"){
+const menuClick = ({key}) => {
+  if (key === "logout") {
     console.log("logout")
     return
   }
@@ -11,6 +13,33 @@ const menuClick = ({ key }) => {
   })
   // console.log(`Click on item ${key}`);
 };
+
+
+// true代表白天 false代表黑夜
+const theme = ref(true)
+const setTheme = () => {
+  theme.value = !theme.value
+  if (theme.value) {
+    // 白天
+    document.documentElement.classList.remove("dark")
+  } else {
+    // 黑夜
+    document.documentElement.classList.add("dark")
+
+  }
+}
+
+
+// 全屏
+const screen = ref(false)
+const setScreen = () =>{
+  screen.value = !screen.value
+  if(screen.value){
+
+  }else {}
+
+}
+
 
 </script>
 
@@ -37,8 +66,10 @@ const menuClick = ({ key }) => {
         <div class="right">
           <div class="icon-action">
             <i class="iconfont icon-home"></i>
-            <i class="iconfont icon-taiyang"> </i>
-            <i class="iconfont icon-quanping"> </i>
+            <i v-if="theme" class="iconfont icon-yueliang" @click="setTheme"> </i>
+            <i v-else class="iconfont icon-liangdu_huaban" @click="setTheme"> </i>
+            <i v-if="screen" class="iconfont icon-tuichuquanping" @click="setScreen"> </i>
+            <i v-else class="iconfont icon-quanping1" @click="setScreen"> </i>
           </div>
 
           <div class="avatar">
@@ -109,13 +140,15 @@ const menuClick = ({ key }) => {
 
         .icon-action {
           margin-right: 20px;
-          i{
-            margin-inline: 10px ;
+
+          i {
+            margin-inline: 10px;
             cursor: pointer;
             font-size: 18px;
             color: var(--test);
           }
-          i:hover{
+
+          i:hover {
             color: var(--active);
           }
 
@@ -129,7 +162,8 @@ const menuClick = ({ key }) => {
           }
 
         }
-        .drop-menu{
+
+        .drop-menu {
           margin-left: 10px;
         }
       }
@@ -141,7 +175,7 @@ const menuClick = ({ key }) => {
     }
 
     main {
-      background-color: #f0eeee;
+      background-color: var(--bg);
       height: calc(100vh - 90px);
     }
 
