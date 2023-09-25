@@ -6,11 +6,15 @@
   <div class="gvb_admin">
     <aside>
       <!--侧边栏-->
+      <div>
+        <i class="iconfont icon-yonghu"></i>
+      </div>
+
     </aside>
 
     <div class="main">
       <header>
-<!--顶部导航栏-->
+        <!--顶部导航栏-->
       </header>
       <div class="tabs"></div>
       <main></main>
