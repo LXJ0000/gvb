@@ -1,10 +1,6 @@
 <template>
   <div class="gvb_admin">
-    <aside>
-      <div>
-
-      </div>
-    </aside>
+    <GVBAside></GVBAside>
     <div class="main">
       <header>
         <div class="left">
@@ -19,9 +15,8 @@
             <i class="iconfont icon-home"></i>
 
             <GVBTheme></GVBTheme>
+            <GVBFullScreen></GVBFullScreen>
 
-            <i class="iconfont icon-tuichuquanping"></i>
-            <i class="iconfont icon-quanping1"></i>
 
           </div>
           <div class="avatar">
@@ -63,6 +58,8 @@
 import {useRouter} from "vue-router";
 import {ref} from "vue";
 import GVBTheme from '../../components/gvb_theme.vue'
+import GVBAside from '../../components/admin/gvb_aside.vue'
+import GVBFullScreen from '../../components/gvb_full_screen.vue'
 
 const router = useRouter()
 const menuClick = ({key}) => {
@@ -87,11 +84,7 @@ const menuClick = ({key}) => {
   width: 100%;
   display: flex;
 
-  aside {
-    width: 240px;
-    height: 100vh;
-    background-color: var(--slide);
-  }
+
 
   .main {
     width: calc(100% - 240px);

@@ -5,8 +5,8 @@
     /*--card_bg: white;*/
     /*--card_boder: #e2e2e2;*/
     /*--slide_sub_bg: #465257;*/
-    /*--slide_bg: #2e393d;*/
-    /*--h2: #333333;*/
+    --slide_bg: #2e393d;
+    --h2: #333333;
     /*--bg_darken: #e2e2e2;*/
     /*--chat_text_bg: #e2e2e2;*/
     /*--chat_text_out_bg: #d9e4ee;*/
@@ -20,7 +20,7 @@
     /*--card_boder: #303030;*/
     /*--slide_sub_bg: #2f2f2f;*/
     /*--slide_bg: #282828;*/
-    /*--h2: #b7b7b7;*/
+    --h2: #b7b7b7;
     /*--bg_darken: #0c1e23;*/
     /*--chat_text_bg: #020202;*/
     /*--chat_text_out_bg: #06111b;*/
