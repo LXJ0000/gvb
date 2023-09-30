@@ -17,7 +17,7 @@ func (UserApi) UserDeleteView(c *gin.Context) {
 	}
 	var userList models.UserModel
 	count := global.DB.Find(&userList, cr.IDList).RowsAffected
-	if count == 0 {
+	if count == 0 || len(cr.IDList) == 0 {
 		//	不存在
 		res.FailWithMessage("用户不存在", c)
 		return

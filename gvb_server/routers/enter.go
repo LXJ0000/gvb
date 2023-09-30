@@ -8,8 +8,11 @@ import (
 )
 
 func InitRouter() *gin.Engine {
+
 	gin.SetMode(global.Config.System.Env)
 	router := gin.Default()
+
+	router.Static("static", "static")
 	///swagger/index.html
 	router.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
