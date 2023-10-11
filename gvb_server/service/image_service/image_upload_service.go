@@ -92,6 +92,8 @@ func (ImageService) ImageUploadService(file *multipart.FileHeader) (fileUploadRe
 		//	ImageType: fileType,
 		//})
 		//return
+	} else {
+		filePath = "/" + filePath
 	}
 	//if err := c.SaveUploadedFile(file, filePath); err != nil {
 	//	global.Log.Info(err.Error())

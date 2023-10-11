@@ -28,7 +28,7 @@ func (ImagesApi) ImagesUpdateView(c *gin.Context) {
 	}
 
 	var imageModel models.BannerModel
-	if err := global.DB.Find(&imageModel).Where("id=?", cr.ID).Error; err != nil {
+	if err := global.DB.Where("id=?", cr.ID).Find(&imageModel).Error; err != nil {
 		res.FailWithMessage("文件不存在", c)
 		return
 	}
@@ -36,6 +36,7 @@ func (ImagesApi) ImagesUpdateView(c *gin.Context) {
 		res.FailWithMessage(err.Error(), c)
 		return
 	}
+
 	res.OKWithMessage("图片名称修改成功", c)
 
 }

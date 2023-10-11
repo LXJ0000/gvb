@@ -1,13 +1,22 @@
 <script setup>
-import {RouterView} from 'vue-router'
+import {useStore} from "@/stores/store"
+
+const store = useStore()
+
+// 加载userinfo
+store.loadUserInfo()
 </script>
 
 <template>
 
 
-  <RouterView/>
+  <router-view />
 </template>
 
-<style scoped>
-
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 </style>

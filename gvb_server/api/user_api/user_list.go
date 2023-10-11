@@ -11,6 +11,12 @@ import (
 
 type UserResponse struct {
 	models.UserModel
+	RoleID int `json:"role_id"`
+}
+
+type UserListRequest struct {
+	models.PageInfo
+	Role int `json:"role" form:"role"`
 }
 
 func (UserApi) UserListView(c *gin.Context) {
@@ -20,16 +26,17 @@ func (UserApi) UserListView(c *gin.Context) {
 		return
 	}
 
-	var cr models.PageInfo
+	var cr UserListRequest
 	if err := c.ShouldBindQuery(&cr); err != nil {
 		res.FailWithCode(res.ArgumentError, c)
 		return
 	}
-	var users []models.UserModel
-	list, count, _ := common.ComList(models.UserModel{}, common.Option{
-		PageInfo: cr,
-		Debug:    true,
+	var users []UserResponse
+	list, count, _ := common.ComList(models.UserModel{Role: ctype.Role(cr.Role)}, common.Option{
+		PageInfo: cr.PageInfo,
+		Likes:    []string{"nick_name"},
 	})
+
 	for _, user := range list {
 		if role != int(ctype.PermissionAdmin) {
 			// not Admin
@@ -37,7 +44,10 @@ func (UserApi) UserListView(c *gin.Context) {
 		}
 		user.Tel = desens.DesensitizationTel(user.Tel)
 		user.Email = desens.DesensitizationEmail(user.Email)
-		users = append(users, user)
+		users = append(users, UserResponse{
+			UserModel: user,
+			RoleID:    int(user.Role),
+		})
 	}
 
 	res.OKWithList(users, count, c)

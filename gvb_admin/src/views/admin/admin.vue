@@ -1,78 +1,94 @@
 <template>
-  <a-layout class="layout-demo">
+  <a-config-provider
+      :theme="{
+      algorithm: theme.defaultAlgorithm,
+      components:{
+        Layout:{
+          colorBgHeader:'#ffffff',
 
-    <Sider></Sider>
+        }
+      }
+    }"
+  >
 
-    <a-layout>
 
-      <Header></Header>
+    <a-layout style="min-height: 100vh; ">
 
-      <a-layout style="padding: 0 24px;">
-        <Breadcrumb></Breadcrumb>
+      <Aside></Aside>
 
-        <Content></Content>
+      <a-layout
+      >
+        <Header></Header>
 
-        <Footer></Footer>
+
+        <a-layout-content
+            style="padding-top: 10px"
+        >
+          <Tabs></Tabs>
+          <main>
+            <div class="view">
+              <router-view v-slot="{Component}">
+                <transition name="fade" mode="out-in">
+                  <component :is="Component"></component>
+                </transition>
+              </router-view>
+            </div>
+          </main>
+        </a-layout-content>
+
+        <a-layout-footer style="text-align: center">
+          Ant Design ©2018 Created by Ant UED
+        </a-layout-footer>
 
       </a-layout>
     </a-layout>
-  </a-layout>
+  </a-config-provider>
+
 </template>
-<script setup>
-import Sider from '@/components/layout/sider.vue'
+<script lang="ts" setup>
 import Header from '@/components/layout/header.vue'
-import Breadcrumb from "@/components/layout/breadcrumb.vue";
-import Content from '@/components/layout/content.vue'
-import Footer from '@/components/layout/footer.vue'
+import Aside from "@/components/layout/aside/aside.vue";
+import Tabs from '@/components/layout/tabs.vue'
+import {theme} from 'ant-design-vue';
 
 </script>
-<style scoped>
-.layout-demo {
-  min-height: 99vh;
-  background: var(--color-fill-2);
-  border: 1px solid var(--color-border);
+<style scoped lang="scss">
+
+
+//.site-layout .site-layout-background {
+//  background: #fff;
+//}
+//
+//[data-theme='dark'] .site-layout .site-layout-background {
+//  background: #141414;
+//}
+
+
+
+main {
+  padding: 10px 20px 0 20px;
 }
 
-.layout-demo :deep(.arco-layout-sider) .logo {
-  height: 32px;
-  margin: 12px 8px;
-  background: rgba(255, 255, 255, 0.2);
+
+</style>
+
+<style>
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 
-.layout-demo :deep(.arco-layout-sider-light) .logo{
-  background: var(--color-fill-2);
+.fade-enter-active {
+  transform: translateX(-30px);
+  opacity: 0;
 }
 
-.layout-demo :deep(.arco-layout-header)  {
-  height: 64px;
-  line-height: 64px;
-  background: var(--color-bg-3);
+.fade-enter-to {
+  transform: translateX(0px);
+  opacity: 1;
 }
 
-.layout-demo :deep(.arco-layout-footer) {
-  height: 48px;
-  color: var(--color-text-2);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 48px;
+.fade-leave-active, .fade-enter-active {
+  transition: all 0.3s ease-out;
 }
-
-.layout-demo :deep(.arco-layout-content) {
-  color: var(--color-text-2);
-  font-weight: 400;
-  font-size: 14px;
-  background: var(--color-bg-3);
-}
-
-.layout-demo :deep(.arco-layout-footer),
-.layout-demo :deep(.arco-layout-content)  {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--color-white);
-  font-size: 16px;
-  font-stretch: condensed;
-  text-align: center;
-}
-
 </style>

@@ -15,13 +15,16 @@ func (UserApi) UserDeleteView(c *gin.Context) {
 		res.FailWithCode(res.ArgumentError, c)
 		return
 	}
-	var userList models.UserModel
+	fmt.Println(cr.IDList)
+	var userList []models.UserModel
 	count := global.DB.Find(&userList, cr.IDList).RowsAffected
 	if count == 0 || len(cr.IDList) == 0 {
 		//	不存在
 		res.FailWithMessage("用户不存在", c)
 		return
 	}
+	fmt.Println(count)
+	fmt.Println(userList)
 
 	//事务
 	if err := global.DB.Transaction(func(tx *gorm.DB) error {

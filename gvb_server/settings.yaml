@@ -31,7 +31,7 @@ site_info:
   slogan_en: LXJ
   web: xxxx
 qi_niu:
-  enable: true
+  enable: false
   access_key: jbOdFNbXoiC6zEhKUtT-rSqtKbt1Ytu1vIUBTSqc
   secret_key: d55oZTrdnEsk_qEGOj0WQv7GZcquNlWuDsvdELSK
   bucket: 202100203017
